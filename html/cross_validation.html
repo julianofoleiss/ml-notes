@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Juliano H. Foleis" />
+  <meta name="dcterms.date" content="2021-07-14" />
+  <title>Cross Validation</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Cross Validation</h1>
+<p class="author">Juliano H. Foleis</p>
+<p class="date">July 14, 2021</p>
+</header>
+<p>Cross validation is a technique used in model selection. It is used to predict how well the model will likely perform on previously unseen data. This prediction can be used to compare machine learning models and decide which one probably performs best.</p>
+<p>Suppose we want to create a classification model for a dataset <span class="math inline">\(\mathcal{D}\)</span>. To evaluate its generalization capabilities, i.e. evaluate how well it performs with previously unseen data, the dataset is usually partitioned into two non-overlapping subsets. The first subset, <span class="math inline">\(\mathcal{D}_{\text{training}}\)</span>, called the <strong>training set</strong>, is used to estimate the model parameters The second subset, <span class="math inline">\(\mathcal{D}_{\text{test}}\)</span>, called the <strong>test set</strong>, is used to evaluate the model performance with unseen data.</p>
+<p>Model performance will vary depending on the partitioning. This raises a question: what is the best possible partitioning? Cross-validation tells us that we should not worry too much about selecting the best partition. Instead, we should estimate what is the performance we should <em>expect</em> with an arbitrary partitioning. This is because we know that any possible test set does not cover all the possible data the model might have to classify in the future. Thus, optimizing the partitioning is meaningless.</p>
+<h1 id="k-fold-cross-validation">K-fold cross validation</h1>
+<p>Cross validation is meta-protocol that is defined by averaging testing set performance metrics of the same machine learning method over different partitions of the data set. One of the most widely used cross validation protocols is the <strong>k-fold cross-validation</strong>.</p>
+<p>In k-fold cross-validation, the dataset is randomly partitioned into <span class="math inline">\(k\)</span> subsets, all approximately the same size. Each subset is known as a <strong>fold</strong>. <span class="math inline">\(k\)</span> training/test partitions are created: the test set is a single fold, and the remaining <span class="math inline">\(k-1\)</span> folds are used as the training set. Each partition uses a different <strong>fold</strong> as the test set, and each fold is used as the test set only once. Figure 1 shows how the dataset is partitioned for k-fold cross-validation with <span class="math inline">\(k=4\)</span>.</p>
+<figure>
+<img src="images/kfold-cv.jpg" alt="Figure 1: K-fold cross validation example (k=4)" /><figcaption><strong>Figure 1:</strong> K-fold cross validation example (<span class="math inline">\(k=4\)</span>)</figcaption>
+</figure>
+<p>The expected model performance is usually calculated as the average of the results for all folds. The standard deviation is also calculated. Both can then be used for statistical testing for model selection. The value for <span class="math inline">\(k\)</span> is not fixed, although <span class="math inline">\(k=10\)</span> is commonly used.</p>
+<h1 id="bibliography">Bibliography</h1>
+<p>Source: <a href="https://www.youtube.com/watch?v=fSytzGwwBVw">StatQuest Machine Learning Fundamentals: Cross Validation.</a></p>
+</body>
+</html>
